@@ -1,0 +1,12 @@
+﻿@model WeatherData
+
+<div class="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-blue-400 to-purple-600 text-white">
+	<div class="bg-white rounded-lg shadow-md p-6 text-gray-800 w-96">
+		<h1 class="text-2xl font-bold mb-4">Weather in @Model.Name</h1>
+		<p class="text-xl">Temperature: <strong>@Model.Main.Temp°C</strong></p>
+		<p class="text-lg">Feels Like: @Model.Main.Feels_Like°C</p>
+		<p class="text-lg">Condition: <strong>@Model.Weather[0].Description</strong></p>
+		<a href="/Weather" class="w-full bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 mt-4 text-center block">Search again</a>
+	</div>
+</div>
+
