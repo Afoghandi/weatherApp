@@ -21,6 +21,14 @@ namespace WeatherApp
             var response = await _httpClient.GetStringAsync(url);
             return JsonConvert.DeserializeObject<WeatherData>(response);
         }
+
+        public async Task<ForecastData> GetForecastAsync(string city)
+        {
+            var url = $"{BaseUrl}/forecast?q={city}&appid={ApiKey}&units=metric";
+            var response = await _httpClient.GetStringAsync(url);
+            return JsonConvert.DeserializeObject<ForecastData>(response);
+        }
+
     }
 
     public class WeatherData
@@ -28,6 +36,13 @@ namespace WeatherApp
         public Main Main { get; set; }
         public string Name { get; set; }
         public Weather[] Weather { get; set; }
+    }
+
+    public class ForecastData
+    {
+        public Main Main { get; set; }
+
+       
     }
     public class Main
     {
@@ -37,5 +52,6 @@ namespace WeatherApp
     public class Weather
     {
         public string Description { get; set; }
+        public string Icon { get; set; }
     }
 }

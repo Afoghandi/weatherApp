@@ -3,28 +3,26 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WeatherApp</title>
+    <title>@ViewData["Title"] - Weather App</title>
     <link href="/css/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.12/css/weather-icons.min.css">
 
-
-   
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WeatherApp.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-    
+<body class="bg-gradient-to-br from-blue-400 to-purple-600 text-white font-sans">
+    <header class="bg-primary py-4">
+        <nav class="container mx-auto flex justify-between items-center">
+            <a href="/" class="text-2xl font-bold text-white">WeatherApp</a>
+        </nav>
     </header>
-    <div>
-        <main role="main" class="pb-3">
+   
+        <main role="main" class="container mx-auto py-8">
             @RenderBody()
         </main>
-    </div>
 
-  
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <footer class="bg-primary text-center py-4 mt-8 text-sm">
+        © 2024 WeatherApp. All rights reserved.
+    </footer>
+
 </body>
 </html>
