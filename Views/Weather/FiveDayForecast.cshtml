@@ -1,0 +1,18 @@
+﻿@{
+    ViewData["Title"] = "5-Day Weather Forecast";
+}
+
+<div class="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-400 to-purple-600">
+    <div class="bg-white text-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
+        <h1 class="text-2xl font-bold mb-6 text-center text-primary">5-Day Weather Forecast</h1>
+        <form method="post" asp-action="GetFiveDayForecast">
+            <label for="city" class="block mb-2 font-semibold">Enter City Name</label>
+            <input type="text" name="city" id="city" placeholder="City name"
+                   class="w-full p-3 border rounded mb-6 focus:outline-none focus:ring-2 focus:ring-primary" />
+            <button type="submit"
+                    class="w-full bg-primary text-white py-2 px-4 rounded hover:bg-blue-600 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                Get 5 Forecast
+            </button>
+        </form>
+    </div>
+</div>

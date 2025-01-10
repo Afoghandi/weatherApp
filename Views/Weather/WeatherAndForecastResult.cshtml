@@ -1,0 +1,40 @@
+﻿@model WeatherApp.Models.WeatherAndForecastResult
+
+<div class="min-h-screen bg-gradient-to-br from-blue-400 to-purple-600 text-white p-8">
+    <h1 class="text-3xl font-bold mb-8 text-center">Weather and 5-Day Forecast in @Model.CurrentWeather.Name</h1>
+
+    <!-- Grid Container -->
+    <div class="flex flex-row gap-6 justify-center items-center overflow-x-auto">
+        <!-- Current Weather -->
+        <div class="bg-white text-gray-800 p-6 rounded-lg shadow-3d transform transition-transform hover:scale-105 w-72 h-72 flex flex-col justify-center items-center">
+           
+                <h2 class="text-xl font-bold mb-4">Current Weather</h2>
+                <p class="text-lg">Current Temperature: <strong>@Math.Round(Model.CurrentWeather.Main.Temp, 1)°C</strong></p>
+                <p class="text-lg">Feels Like: <strong>@Model.CurrentWeather.Main.Feels_Like°C</strong></p>
+                <p class="text-lg">Condition: <strong> @Model.CurrentWeather.Weather[0].Description</strong></p>
+            <i class="wi @Model.CurrentWeather.Weather[0].Icon text-6xl my-4 animate-bounceIcon"></i>
+          
+           
+        </div>
+
+        <!-- 5-Day Forecast -->
+        @foreach (var day in Model.Forecast)
+        {
+            <div class="bg-white text-gray-800 p-6 rounded-lg shadow-3d transform transition-transform hover:scale-105 w-72 h-72 flex flex-col justify-center items-center">
+                <h3 class="text-lg font-bold">@day.Date.ToString("dddd, MMM dd")</h3>
+                <p class="text-md">Avg Temp: <strong>@Math.Round(day.AvgTemp)°C</strong></p>
+                <p class="text-md"><strong> @day.Condition </strong> </p>
+                <i class="wi @day.Icon text-5xl my-4 animate-bounceIcon"></i>
+
+               
+            </div>
+        }
+        <!-- Search Again Button -->
+        <div class="mt-8 flex justify-center bg-primary">
+            <a href="/Weather/Index" class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200">
+                Search Again
+            </a>
+
+    </div>
+ 
+</div>

@@ -1,3 +1,5 @@
+using Newtonsoft.Json;
+
 namespace WeatherApp
 {
     public class Program
@@ -14,6 +16,8 @@ namespace WeatherApp
 
             var app = builder.Build();
 
+         
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -22,16 +26,23 @@ namespace WeatherApp
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
 
             app.UseAuthorization();
 
+
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Weather}/{action=Index}/{id?}");
+
+            //app.MapControllerRoute(
+            //    name: "fiveDayForecast",
+            //    pattern: "Weather/FiveDaycast",
+            //    defaults: new { controller = "Weather", action = "FiveDayForecast" }
+            //    );
 
             app.Run();
         }
