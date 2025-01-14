@@ -1,0 +1,30 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="w-32 h-32">
+	<!-- Define Gradients -->
+	<defs>
+		<linearGradient id="cloud-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#C4D7E1" />
+			<stop offset="100%" stop-color="#5D738F" />
+		</linearGradient>
+	</defs>
+
+	<!-- Cloud Body -->
+	<ellipse cx="32" cy="36" rx="20" ry="12" fill="url(#cloud-gradient)" class="cloud" />
+	<ellipse cx="42" cy="32" rx="16" ry="10" fill="url(#cloud-gradient)" class="cloud" />
+	<ellipse cx="22" cy="34" rx="16" ry="10" fill="url(#cloud-gradient)" class="cloud" />
+
+	<!-- Style -->
+	<style>
+		.cloud {
+		animation: float 5s ease-in-out infinite alternate;
+		}
+
+		@keyframes float {
+		0% {
+		transform: translateX(0);
+		}
+		100% {
+		transform: translateX(10px);
+		}
+		}
+	</style>
+</svg>

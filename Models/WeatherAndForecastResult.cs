@@ -7,6 +7,6 @@ namespace WeatherApp.Models
     {
 
         public WeatherData CurrentWeather { get; set; }
-        public IEnumerable <dynamic> Forecast {  get; set; }    
+        public IEnumerable <ForecastItem> Forecast {  get; set; }    
     }
 }

@@ -1,0 +1,18 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .smoke {
+      animation: float 4s infinite ease-in-out;
+    }
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+  </style>
+  <circle cx="32" cy="40" r="10" fill="#B0BEC5" />
+  <circle cx="24" cy="30" r="8" fill="#90A4AE" class="smoke" />
+  <circle cx="40" cy="20" r="6" fill="#78909C" class="smoke" style="animation-delay: 1s;" />
+</svg>

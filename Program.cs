@@ -38,12 +38,6 @@ namespace WeatherApp
                 name: "default",
                 pattern: "{controller=Weather}/{action=Index}/{id?}");
 
-            //app.MapControllerRoute(
-            //    name: "fiveDayForecast",
-            //    pattern: "Weather/FiveDaycast",
-            //    defaults: new { controller = "Weather", action = "FiveDayForecast" }
-            //    );
-
             app.Run();
         }
     }

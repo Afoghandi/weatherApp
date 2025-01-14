@@ -1,0 +1,22 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .drop {
+      animation: fall 2s infinite ease-in-out;
+    }
+    .snow {
+      animation: fall 2s infinite ease-in-out;
+      animation-delay: 0.5s;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(15px);
+      }
+    }
+  </style>
+  <circle cx="32" cy="20" r="10" fill="#607D8B" />
+  <circle cx="28" cy="40" r="3" fill="#90CAF9" class="drop" />
+  <circle cx="36" cy="50" r="3" fill="#E3F2FD" class="snow" />
+</svg>

@@ -1,0 +1,54 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="w-32 h-32">
+	<!-- Background Gradient -->
+	<defs>
+		<linearGradient id="snowy-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#E0EFFF" />
+			<stop offset="100%" stop-color="#A9D2E6" />
+		</linearGradient>
+	</defs>
+
+	<!-- Background -->
+	<rect width="64" height="64" fill="url(#snowy-gradient)" />
+
+	<!-- Cloud -->
+	<ellipse cx="32" cy="24" rx="20" ry="10" fill="#A9D2E6" />
+	<ellipse cx="42" cy="20" rx="16" ry="8" fill="#D0E6F8" />
+	<ellipse cx="22" cy="22" rx="16" ry="8" fill="#B3D9EF" />
+
+	<!-- Snowflakes -->
+	<g class="snowflake-group">
+		<circle cx="15" cy="0" r="2" fill="#FFFFFF" class="snowflake" />
+		<circle cx="32" cy="-20" r="2" fill="#FFFFFF" class="snowflake" />
+		<circle cx="50" cy="-40" r="2" fill="#FFFFFF" class="snowflake" />
+	</g>
+
+	<!-- Styles -->
+	<style>
+		.snowflake {
+		animation: fall 5s linear infinite;
+		}
+
+		.snowflake:nth-child(1) {
+		animation-delay: 0s;
+		}
+
+		.snowflake:nth-child(2) {
+		animation-delay: 1.5s;
+		}
+
+		.snowflake:nth-child(3) {
+		animation-delay: 3s;
+		}
+
+		@keyframes fall {
+		0% {
+		transform: translateY(-10px);
+		opacity: 1;
+		}
+		100% {
+		transform: translateY(74px);
+		opacity: 0;
+		}
+		}
+	</style>
+</svg>

@@ -1,0 +1,20 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .wave {
+      animation: heat-wave 3s infinite;
+    }
+    @keyframes heat-wave {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
+      }
+      50% {
+        transform: scale(1.2);
+        opacity: 1;
+      }
+    }
+  </style>
+  <circle cx="32" cy="32" r="12" fill="#FFA726" />
+  <path d="M32 6v4M32 54v4M54 32h4M6 32H2M48.97 48.97l-2.83-2.83M15.83 15.83l-2.83-2.83M48.97 15.03l-2.83 2.83M15.03 48.97l-2.83 2.83" stroke="#FF5722" stroke-width="2" />
+  <path d="M20 50c2-4 8-6 12-6s10 2 12 6" stroke="#FF5722" stroke-width="2" class="wave" />
+</svg>

@@ -1,0 +1,37 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="w-32 h-32">
+	<!-- Define Gradients -->
+	<defs>
+		<linearGradient id="rain-cloud-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#7393B3" />
+			<stop offset="100%" stop-color="#1C4E80" />
+		</linearGradient>
+		<linearGradient id="raindrop-gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+			<stop offset="0%" stop-color="#ADD8E6" />
+			<stop offset="100%" stop-color="#4682B4" />
+		</linearGradient>
+	</defs>
+
+	<!-- Cloud Body -->
+	<ellipse cx="32" cy="30" rx="20" ry="12" fill="url(#rain-cloud-gradient)" />
+
+	<!-- Raindrops -->
+	<path d="M26 42l-2 6M32 42l-2 6M38 42l-2 6" stroke="url(#raindrop-gradient)" stroke-width="3" stroke-linecap="round" class="raindrop" />
+
+	<!-- Style -->
+	<style>
+		.raindrop {
+		animation: fall 1s linear infinite;
+		}
+
+		@keyframes fall {
+		0% {
+		transform: translateY(0);
+		opacity: 1;
+		}
+		100% {
+		transform: translateY(10px);
+		opacity: 0;
+		}
+		}
+	</style>
+</svg>

@@ -1,0 +1,58 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" class="w-32 h-32">
+	<!-- Define Gradients -->
+	<defs>
+		<radialGradient id="sun-gradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+			<stop offset="0%" stop-color="#FFED85" />
+			<stop offset="100%" stop-color="#FFC107" />
+		</radialGradient>
+		<linearGradient id="ray-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+			<stop offset="0%" stop-color="#FFD700" />
+			<stop offset="100%" stop-color="#FFA500" />
+		</linearGradient>
+	</defs>
+
+	<!-- Sun Core -->
+	<circle cx="32" cy="32" r="12" fill="url(#sun-gradient)" class="sun" />
+
+	<!-- Rays -->
+	<path
+        d="M32 8v4M32 52v4M56 32h-4M8 32H4M48.97 48.97l-2.83-2.83M15.83 15.83l-2.83-2.83M48.97 15.03l-2.83 2.83M15.03 48.97l-2.83 2.83"
+        stroke="url(#ray-gradient)"
+        stroke-width="3"
+        stroke-linecap="round"
+        class="ray"
+    />
+
+	<!-- Style -->
+	<style>
+		.sun {
+		animation: pulse 2s infinite;
+		}
+
+		.ray {
+		animation: rotate-ray 10s linear infinite;
+		}
+
+		@keyframes pulse {
+		0%, 100% {
+		transform: scale(1);
+		opacity: 1;
+		}
+		50% {
+		transform: scale(1.1);
+		opacity: 0.9;
+		}
+		}
+
+		@keyframes rotate-ray {
+		0% {
+		transform: rotate(0deg);
+		transform-origin: center;
+		}
+		100% {
+		transform: rotate(360deg);
+		transform-origin: center;
+		}
+		}
+	</style>
+</svg>

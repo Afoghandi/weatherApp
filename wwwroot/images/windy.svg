@@ -1,0 +1,18 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .wind {
+      animation: blow 2s infinite ease-in-out;
+    }
+    @keyframes blow {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(10px);
+      }
+    }
+  </style>
+  <line x1="10" y1="20" x2="54" y2="20" stroke="#90CAF9" stroke-width="3" class="wind" />
+  <line x1="10" y1="32" x2="44" y2="32" stroke="#64B5F6" stroke-width="3" class="wind" style="animation-delay: 0.5s;" />
+  <line x1="10" y1="44" x2="38" y2="44" stroke="#2196F3" stroke-width="3" class="wind" style="animation-delay: 1s;" />
+</svg>

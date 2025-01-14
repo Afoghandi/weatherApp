@@ -1,0 +1,18 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .flake {
+      animation: spin 5s infinite linear;
+    }
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <circle cx="32" cy="32" r="12" fill="#E0F7FA" />
+  <path d="M32 8v48M8 32h48" stroke="#00BCD4" stroke-width="3" class="flake" />
+  <path d="M16 16l32 32M16 48l32-32" stroke="#00ACC1" stroke-width="3" class="flake" style="animation-delay: 1s;" />
+</svg>

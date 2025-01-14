@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <style>
+    .particle {
+      animation: drift 5s infinite ease-in-out;
+    }
+    @keyframes drift {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+  </style>
+  <circle cx="20" cy="40" r="4" fill="#FBC02D" class="particle" />
+  <circle cx="32" cy="30" r="6" fill="#F57F17" class="particle" style="animation-delay: 1s;" />
+  <circle cx="44" cy="45" r="5" fill="#F9A825" class="particle" style="animation-delay: 0.5s;" />
+</svg>
