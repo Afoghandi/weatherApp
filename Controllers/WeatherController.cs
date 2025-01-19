@@ -23,77 +23,48 @@ public class WeatherController : Controller
         return View();
     }
 
-    //public IActionResult FiveDayForecast()
-    //{
-    //    return View();
-    //}
+  
 
     [HttpPost]
- 
 
-    public async Task<IActionResult>GetWeatherAndForecast(string city)
+    [HttpGet]
+    public async Task<IActionResult>GetWeatherAndForecast(string city, double? latitude, double? longitude)
     {
-      
-        if (string.IsNullOrWhiteSpace(city))
-        {
-            Console.WriteLine("City name is empty.");
-            ViewBag.Error = "City name cannot be Empty";
-            return View("Index");
+       
 
-        }
         try
         {
-            var result = await _weatherService.GetWeatherAndForecastResultAsync(city);
+            if (!string.IsNullOrWhiteSpace(city))
+            {
+              
+                var result = await _weatherService.GetWeatherAndForecastResultAsync(city);
+                //Set dynamic BG and SVG
+                var (backgroundClass, svgPath) = WeatherBackgroundHelper.GetBackgroundDetails(result.CurrentWeather.Weather[0].Description);
+                ViewBag.BackgroundClass = backgroundClass;
+                ViewBag.SvgPath = svgPath;
+                return View("WeatherAndForecastResult", result);
 
-            // Map the icon for current weather
-            result.CurrentWeather.Weather[0].Icon = WeatherIconMapper.GetIconClass(result.CurrentWeather.Weather[0].Description);
+            }
+            else if (latitude.HasValue && longitude.HasValue){
+                Console.WriteLine($"Fetching weather for location: Latitude {latitude}, Longitude {longitude}");
+                var result = await _weatherService.GetWeatherAndForecastByLocationAsync(latitude.Value, longitude.Value);
 
+                //Set dynamic BG and SVG
+                var (backgroundClass, svgPath) = WeatherBackgroundHelper.GetBackgroundDetails(result.CurrentWeather.Weather[0].Description);
+                ViewBag.BackgroundClass = backgroundClass;
+                ViewBag.SvgPath = svgPath;
+                return View("WeatherAndForecastResult", result);
 
-            //Set dynamic background class
-            var (backgroundClass, svgPath)= WeatherBackgroundHelper.GetBackgroundDetails(result.CurrentWeather.Weather[0].Description);
-            ViewBag.BackgroundClass = backgroundClass;
-            ViewBag.SvgPath = svgPath;  
-            Console.WriteLine( $"Assigned BackgroundClass: {ViewBag.BackgroundClass}, Assigned svg: {svgPath}" );
-            return View("WeatherAndForecastResult", result);
-            // fetch curent weather
+            }
+            else
+            {
+                Console.WriteLine("City name is empty and location is not provided.");
+                ViewBag.Error = "City name cannot be empty, and location services must be enabled.";
+                return View("Index");
+
+            }
            
-            //var weather = await _weatherService.GetWeatherAsync(city);
-
-            //// Map the icon for the current weather condition
-            //weather.Weather[0].Icon = WeatherIconMapper.GetIconClass(weather.Weather[0].Description);
-
-            //// fetch 5-day forecast
-
-            //var forecast = await _weatherService.GetForecastAsync(city);
-           
-            //var groupedForecast = forecast.List
-            // .GroupBy(f => DateTimeOffset.FromUnixTimeSeconds(f.Dt).Date)
-            // .Select(g => new
-            // {
-            //     Date = g.Key,
-            //     AvgTemp = g.Average(f => f.Main.Temp),
-            //     Condition = g.First().Weather.First().Description,
-            //     Icon = WeatherIconMapper.GetIconClass(g.First().Weather.First().Description)
-            // }
-            // )
-            // .ToList();
-
-           
-            //var bgClass = WeatherBackgroundHelper.GetBackgroundClass(weather.Weather[0].Description);
-            //ViewBag.BackgroundClass = bgClass;
-            //// Combine results into a single object
-
-            //var results = new WeatherAndForecastResult
-       
-            //{
-
-
-            //    CurrentWeather = weather,
-            //    Forecast = groupedForecast,
-            //};
-
-           
-            //return View("WeatherAndForecastResult", results);
+        
         }
         catch (Exception ex)
         {
@@ -104,4 +75,58 @@ public class WeatherController : Controller
         }
           
     }
+
+    [HttpPost]
+    public async Task<IActionResult> GetWeatherByLocation([FromBody] LocationRequest request)
+    {
+        if (request == null || request.Latitude == 0 || request.Longitude == 0)
+        {
+            Console.WriteLine("Location not provided.");
+            ViewBag.Error = "Location is not provided.";
+            return View("Index");
+        }
+
+        Console.WriteLine($"Latitude: {request.Latitude}, Longitude: {request.Longitude}");
+
+        try
+        {
+            var result = await _weatherService.GetWeatherAndForecastByLocationAsync(request.Latitude, request.Longitude);
+            return View("WeatherAndForecastResult", result);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data by location: {ex.Message}");
+            ViewBag.Error = "Unable to fetch weather data by location.";
+            return View("Index");
+        }
+    }
+
+    //[HttpGet]
+    //public async Task<IActionResult> GetWeatherForecastByLocation(double latitude, double longitude)
+    //{
+    //    Console.WriteLine($"Geolocation called");
+    //    if (latitude == 0 || longitude == 0)
+    //    {
+    //        ViewBag.Error = "Unable to fetch location. Invalid coordinates.";
+    //        return View("Index");
+    //    }
+    //    try
+    //    {
+    //        var result = await _weatherService.GetWeatherAndForecastByLocationAsync(latitude, longitude);
+    //        //Assigne dynamic BG and SVG
+    //        var (backgroundClass, svgPath) = WeatherBackgroundHelper.GetBackgroundDetails(result.CurrentWeather.Weather[0].Description);
+    //        ViewBag.BackgroundClass = backgroundClass;
+    //        ViewBag.SvgPath = svgPath;
+
+    //        Console.WriteLine($"Location : {backgroundClass} and svg:{svgPath} ");
+    //        return View("WeatherAndForecastResult", result );
+
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        Console.WriteLine($"Error fetching weather data: {ex.Message}");
+    //        ViewBag.Error = "Unable to fetch weather data. Please try again.";
+    //        return View("Index");
+    //    }
+    //    }
 }

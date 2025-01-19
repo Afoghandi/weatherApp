@@ -41,17 +41,23 @@ namespace WeatherApp
             var response = await _httpClient.GetStringAsync(url);
 
             var forecastData = JsonConvert.DeserializeObject<ForecastData>(response);
-
+           
             var uniqueForecasts = forecastData.List
-                .GroupBy(item => item.Date.Date)
-                .Select(group =>
-                {
-                    var item = group.First();
-                    item.Icon = WeatherIconMapper.GetIconClass(item.Condition);
-                    return item;
-                  }
-
-                );
+        .GroupBy(item => DateTimeOffset.FromUnixTimeSeconds(item.Dt).Date) // Group by parsed Date
+        .Select(group =>
+        {
+            var firstItem = group.First();
+            return new ForecastItem
+            {
+                Dt = firstItem.Dt,
+                Date = group.Key, // Use the grouped date
+                Main = new Main { Temp = group.Average(f => f.Main.Temp) },
+                Condition = firstItem.Weather.First().Description,
+                Icon = WeatherIconMapper.GetIconClass(firstItem.Weather.First().Description)
+            };
+        })
+        .ToList();
+          
             return uniqueForecasts;
 
           
@@ -69,6 +75,48 @@ namespace WeatherApp
              
          
             };
+        }
+
+
+        public async Task<WeatherAndForecastResult> GetWeatherAndForecastByLocationAsync(double latitude, double longitude)
+        {
+
+            Console.WriteLine($"Fetching data for Latitude service: {latitude}, Longitude: {longitude}");
+            var weatherUrl = $"{WeatherEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
+            var forecastUrl = $"{ForecastEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
+
+            Console.WriteLine($"Fetching current weather for location weather service: {latitude}, {longitude}");
+            var currentWatherResponse = await _httpClient.GetStringAsync(weatherUrl);
+            var currentWeather = JsonConvert.DeserializeObject<WeatherData>(currentWatherResponse);
+
+            Console.WriteLine($"Weather API Response: {currentWeather}");
+            var forecastResponse = await _httpClient.GetStringAsync(forecastUrl);
+            var forecast = JsonConvert.DeserializeObject<ForecastData>(forecastResponse);
+
+            var groupedForecast = forecast.List
+                .GroupBy(f => DateTimeOffset.FromUnixTimeSeconds(f.Dt).Date)
+                .Select(g => new 
+
+                {
+                    Date = g.Key,
+                    
+                    AvgTem = g.Average(f => f.Main.Temp),
+                    Condition = g.First().Weather.First().Description,
+                    Icon = WeatherIconMapper.GetIconClass(g.First().Weather.First().Description)
+                } )
+                .Select(a => new ForecastItem
+
+                {
+                    Date = a.Date,
+                    Main = new Main { Temp = a.AvgTem},
+                    Condition = a.Condition,
+                    Icon = a.Icon,
+                }
+                ).ToList();
+
+            return new WeatherAndForecastResult { CurrentWeather = currentWeather, Forecast = groupedForecast };
+               
+
         }
 
     }

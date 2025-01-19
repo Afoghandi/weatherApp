@@ -11,9 +11,12 @@ namespace WeatherApp.Models.Forecast
         public Main Main { get; set; }
 
         public List<Weather> Weather { get; set; }
-        public string Condition => Weather?[0]?.Description;
+
+
+
+        public string Condition { get; set; }
         public string Icon {get; set;}
-        public DateTime Date => DateTimeOffset.FromUnixTimeSeconds(Dt).DateTime;
+        public DateTime Date { get; set; }
 
     }
 }
