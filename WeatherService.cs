@@ -81,15 +81,15 @@ namespace WeatherApp
         public async Task<WeatherAndForecastResult> GetWeatherAndForecastByLocationAsync(double latitude, double longitude)
         {
 
-            Console.WriteLine($"Fetching data for Latitude service: {latitude}, Longitude: {longitude}");
+          
             var weatherUrl = $"{WeatherEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
             var forecastUrl = $"{ForecastEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
 
-            Console.WriteLine($"Fetching current weather for location weather service: {latitude}, {longitude}");
+           
             var currentWatherResponse = await _httpClient.GetStringAsync(weatherUrl);
             var currentWeather = JsonConvert.DeserializeObject<WeatherData>(currentWatherResponse);
 
-            Console.WriteLine($"Weather API Response: {currentWeather}");
+           
             var forecastResponse = await _httpClient.GetStringAsync(forecastUrl);
             var forecast = JsonConvert.DeserializeObject<ForecastData>(forecastResponse);
 
