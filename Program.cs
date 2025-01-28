@@ -1,4 +1,4 @@
-using Newtonsoft.Json;
+
 
 namespace WeatherApp
 {
@@ -12,7 +12,12 @@ namespace WeatherApp
 
           
             builder.Services.AddControllersWithViews();
-              builder.Services.AddHttpClient<WeatherService>();
+            builder.Services.AddSingleton<WeatherService>();
+            builder.Services.AddHttpClient<WeatherService>();
+
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange:true)
+                .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional:true)
+                .AddEnvironmentVariables();
 
             var app = builder.Build();
 

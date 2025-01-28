@@ -13,22 +13,24 @@ namespace WeatherApp
     public class WeatherService
     {
         private readonly HttpClient _httpClient;
-        private const string ApiKey = "31469ed43f28e32aa411364b54ef2331";
+      
+       private readonly string _apiKey;
       
         private const string WeatherEndpoint = "https://api.openweathermap.org/data/2.5/weather";
         private const string ForecastEndpoint = "https://api.openweathermap.org/data/2.5/forecast";
 
 
-        public WeatherService(HttpClient httpClient)
+        public WeatherService(HttpClient httpClient, IConfiguration configuration)
         {
             _httpClient = httpClient ?? throw new ArgumentNullException(nameof(httpClient));
+            _apiKey = configuration["AppSettings:OpenWeatherApiKey"]?? throw new InvalidOperationException($"API Key not configured");
            
         }
 
         public async Task<WeatherData> GetWeatherAsync(string city)
         {
             
-            var url = $"{WeatherEndpoint}?q={city}&appid={ApiKey}&units=metric";
+            var url = $"{WeatherEndpoint}?q={city}&appid={_apiKey}&units=metric";
             var response = await _httpClient.GetStringAsync(url);
             // Log the raw response
           
@@ -37,7 +39,7 @@ namespace WeatherApp
 
         public async Task<IEnumerable< ForecastItem>> GetForecastAsync(string city)
         {
-            var url = $"{ForecastEndpoint}?q={city}&appid={ApiKey}&units=metric";
+            var url = $"{ForecastEndpoint}?q={city}&appid={_apiKey}&units=metric";
             var response = await _httpClient.GetStringAsync(url);
 
             var forecastData = JsonConvert.DeserializeObject<ForecastData>(response);
@@ -82,8 +84,8 @@ namespace WeatherApp
         {
 
           
-            var weatherUrl = $"{WeatherEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
-            var forecastUrl = $"{ForecastEndpoint}?lat={latitude}&lon={longitude}&appid={ApiKey}&units=metric";
+            var weatherUrl = $"{WeatherEndpoint}?lat={latitude}&lon={longitude}&appid={_apiKey}&units=metric";
+            var forecastUrl = $"{ForecastEndpoint}?lat={latitude}&lon={longitude}&appid={_apiKey}&units=metric";
 
            
             var currentWatherResponse = await _httpClient.GetStringAsync(weatherUrl);
