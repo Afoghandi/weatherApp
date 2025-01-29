@@ -18,6 +18,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Oo]ut/
 # Exclude appsettings
 appsettings.json
 appsettings.Development.json
+secrets.json
